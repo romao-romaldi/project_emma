@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-3 lg:px-4">
+    <div class="bg-white p-6">
+        <h1 class="text-2xl font-bold mb-4">Ajouter une entreprise</h1>
+        <form method="post" class="flex flex-col gap-2"
+        hx-post="{% url 'core:entreprise_create' %}"
+        hx-target="#ReabonnementCard"
+        hx-swap="innerHTML" 
+        hx-trigger="submit"
+        
+        >
+            {% csrf_token %}
+            <!-- Add your form fields here -->
+            <div class="flex flex-col gap-2">
+                <label for="{{form.title.id_for_label}}" class="block text-base font-medium text-gray-700">Nom de entreprise *</label>
+                {{form_entreprise.name.errors }}
+                {{form_entreprise.name }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="{{form.title.id_for_label}}" class="block text-base font-medium text-gray-700">Email </label>
+                {{form_entreprise.email.errors }}
+                {{form_entreprise.email }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="{{form.title.id_for_label}}" class="block text-base font-medium text-gray-700">Pays * </label>
+                {{form_entreprise.country.errors }}
+                {{form_entreprise.country }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="{{form.title.id_for_label}}" class="block text-base font-medium text-gray-700">Ville * </label>
+                {{form_entreprise.city.errors }}
+                {{form_entreprise.city }}
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="{{form.title.id_for_label}}" class="block text-base font-medium text-gray-700">Description * </label>
+                {{form_entreprise.description.errors }}
+                {{form_entreprise.description }}
+            </div>
+
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md mt-6">Enregistrer</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-tailwind = "==3.6.0"
+gunicorn = "*"
+django-ckeditor = "==6.7.1"
+django-htmx = "*"
+django-extension = "*"
+django-browser-reload = "*"
+whitenoise = "*"
+django = "*"
+opencv-python = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

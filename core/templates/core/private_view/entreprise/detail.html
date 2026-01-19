@@ -1,0 +1,135 @@
+{% extends "core/private_view/base.html" %}
+
+
+{% block content %}
+<div>
+    <h1 class="text-3xl font-bold ">
+        Details de l'Entreprise
+    </h1>
+
+    <div class="flex flex-col gap-4 border px-6 py-4 mt-6 bg-white rounded-md shadow-sm">
+        <div class="flex gap-2 items-center">
+            <h2 class="text-xl font-semibold">Nom de l'Entreprise :</h2>
+            <p class="text-base">{{ entreprise.name }}</p>
+        </div>
+
+        
+
+        <div class="flex max-sm:flex-col  gap-2 lg:justify-between">
+            <div class="flex gap-2 items-center">
+                <h2 class="text-xl font-semibold">Email :</h2>
+                <p class="text-base">{{ entreprise.email }}</p>
+            </div>
+
+            <div class="flex gap-2 items-center">
+                <h2 class="text-xl font-semibold">Pays :</h2>
+                <p class="text-base">{{ entreprise.country }}</p>
+            </div>
+    
+            <div class="flex gap-2 items-center">
+                <h2 class="text-xl font-semibold">Ville :</h2>
+                <p class="text-base">{{ entreprise.city }}</p>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-semibold">Description :</h2>
+            <p class="text-base">{{ entreprise.description }}</p>
+        </div>
+    </div>
+
+    <div class="flex flex-col px-3 md:px-0 py-2 gap-3 mt-6">
+
+        <div 
+        x-data="{
+            changeStep:false,
+            tabSelected: 1,
+            tabId: $id('tabs'),
+            tabButtonClicked(tabButton){
+                this.tabSelected = tabButton.id.replace(this.tabId + '-', '');
+                console.log('je suis entrain de verifer le tab', this.tabSelected)
+
+                
+            },
+            tabRepositionMarker(tabButton){
+                this.$refs.tabMarker.style.width=tabButton.offsetWidth + 'px';
+                this.$refs.tabMarker.style.height=tabButton.offsetHeight + 'px';
+                this.$refs.tabMarker.style.left=tabButton.offsetLeft + 'px';
+            },
+            tabContentActive(tabContent){
+                return this.tabSelected == tabContent.id.replace(this.tabId + '-content-', '');
+            }
+        }"
+        
+        x-init="tabRepositionMarker($refs.tabButtons.firstElementChild);"
+
+        class="relative min-h-[512px] lg:max-w-7xl shadow-md border border-gray-50 rounded-md
+        grid grid-cols-12 
+        ">
+            <div class="relative h-14 md:h-full col-span-full md:col-span-2 border-e border-gray-300
+            transition-all duration-400 ease-in-out overflow-auto"
+            :class="{'h-48': changeStep === true}">
+                <div x-ref="tabButtons" class="relative h-full max-sm:inline-flex
+                 md:flex md:flex-col md:items-center w-full max-sm:h-10 gap-2 px-1 py-4 text-gray-600 
+                rounded-lg select-none transition-all duration-600 ease-in-out"
+                :class="{'flex flex-col min-h-full':changeStep === true}"
+                >
+                    <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" 
+                        class="relative z-20 inline-flex items-center justify-start w-full h-8 px-3
+                        text-sm font-medium transition-all rounded-md cursor-pointer whitespace-nowrap
+                        
+                        "
+                        :class="{'bg-blue-200':parseInt(tabSelected) === 1}"
+                     >Informations Générales</button>
+                    <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" 
+                        class="relative z-20 inline-flex items-center justify-start w-full h-8 px-3 
+                        text-sm font-medium transition-all rounded-md cursor-pointer whitespace-nowrap"
+                        :class="{'bg-blue-200':parseInt(tabSelected) === 2}"
+                    >Contenus</button>
+                    <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" 
+                        class="relative z-20 inline-flex items-center justify-start w-full h-8 px-3 
+                        text-sm font-medium transition-all rounded-md cursor-pointer whitespace-nowrap"
+                        :class="{'bg-blue-200':parseInt(tabSelected) === 3}"
+                    >Projects</button>
+                </div>
+                <button class="absolute top-1 right-1 z-30 md:hidden"
+                @click="changeStep=!changeStep">
+                    <span class="material-icons md-28 bg-gray-50 rounded-md
+                    transition-all duration-300 ease-in-out 
+                    " :class="{'rotate-90':changeStep === true, '-rotate-90':changeStep === false}">chevron_left</span>
+                </button>
+            </div>
+
+            <div class="w-full h-full col-span-full md:col-span-10">
+                <div class="relative w-full mt-2 content">
+                    <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="relative" x-cloak>
+                        <!-- Tab Content 1 - Replace with your content -->
+                        <div class="bg-card text-neutral-900 flex flex-col gap-8 px-7">
+                            <div>
+                                <h3 class="font-semibold text-xl">Informations Génerales  </h3>
+                            </div>
+
+                            {% include "core/private_view/partial/entreprise/details/address.html" %}
+                            {% include "core/private_view/partial/entreprise/details/contact.html" %}
+
+                        </div>
+                        <!-- End Tab Content 1 -->
+                    </div>
+
+                    <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="relative" x-cloak>
+                        <!-- Tab Content 1 - Replace with your content -->
+                        <div class="bg-card text-neutral-900 flex flex-col gap-8 px-7">
+                            {% include "core/private_view/partial/entreprise/details/contenue/section.html" %}
+                        </div>
+                        <!-- End Tab Content 1 -->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

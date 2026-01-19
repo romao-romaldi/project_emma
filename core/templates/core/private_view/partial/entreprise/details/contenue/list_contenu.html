@@ -1,0 +1,68 @@
+<div>
+    <h3>Liste des contenus</h3>
+
+    <div id="contenu_list" class="grid grid-cols-1 md:grid-col-2 lg:grid-cols-4 gap-4">
+        {% for contenu in contenus_entreprise %}
+          
+        <div class="flex flex-col gap-1 border rounded-md px-1 py-1">
+            <h3 class="text-base">{{ contenu.title }}</h3>
+            <div class="relative w-full overflow-hidden
+            
+            {% if contenu.ratio_string == '16/9' %}
+              aspect-[16/9]
+            {% elif contenu.ratio_string == '9/16' %}
+             aspect-[9/16]
+            
+            {% elif contenu.ratio_string == '4/3' %}
+              aspect-[4/3]
+            {% elif contenu.ratio_string == '3/4' %}
+              aspect-[3/4]
+
+            {% elif contenu.ratio_string == '1/1' %}
+              aspect-square
+            {% endif %}
+            ">
+               {% with media_type=contenu.get_media_type %}
+        
+                    {% if media_type == 'image' %}
+                        <!-- Affichage Image -->
+                        <img src="{{ contenu.file.url }}" 
+                            class="w-full h-auto rounded-lg shadow-md object-cover" 
+                            alt="Illustration">
+
+                    {% elif media_type == 'video' %}
+                        <!-- Affichage Vidéo avec le ratio dynamique vu précédemment -->
+                        <div class="aspect-video w-full bg-black rounded-lg overflow-hidden">
+                            <video controls class="w-full h-full object-cover">
+                                <source src="{{ contenu.file.url }}">
+                            </video>
+                        </div>
+                    {% endif %}
+
+                {% endwith %}
+            </div>
+            <p class="text-gray-700 text-sm">
+                {{ contenu.body|truncatewords:40 }}
+            </p>
+
+            <div>
+                {% if not contenu.is_principal %}
+                    <form 
+                        hx-post="{% url 'core:contenu_add' entreprise.id  %}"
+                        hx-target="#contenu_body"
+                        hx-swap="innerHTML"
+                        hx-trigger="submit"
+                        >
+                        {% csrf_token %}
+                        <button type="submit" class="text-blue-600 hover:underline text-sm">Définir comme contenu principal</button>
+                    </form>
+                {% else %}
+                    <span class="text-green-600 text-sm font-semibold">Contenu Principal</span>
+                {% endif %}
+            </div>
+        </div>
+
+        
+        {% endfor %}
+    </div>
+</div>

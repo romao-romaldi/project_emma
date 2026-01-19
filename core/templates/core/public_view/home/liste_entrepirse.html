@@ -1,0 +1,71 @@
+{% extends "core/public_view/base.html" %}
+
+{% block content %}
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Liste des Entreprises</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for entreprise in entreprises %}
+        <div class="rounded-lg overflow-hidden border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[380px]
+
+        ">
+            <div class="relative">
+                {% for contenu in entreprise.contenus.all %}
+                    {% if contenu.is_principal %}
+                        <div class="relative w-full overflow-hidden
+                    
+                        {% if contenu.ratio_string == '16/9' %}
+                        aspect-[16/9]
+                        {% elif contenu.ratio_string == '9/16' %}
+                        aspect-[9/16]
+                        
+                        {% elif contenu.ratio_string == '4/3' %}
+                        aspect-[4/3]
+                        {% elif contenu.ratio_string == '3/4' %}
+                        aspect-[3/4]
+
+                        {% elif contenu.ratio_string == '1/1' %}
+                        aspect-square
+                        {% endif %}
+                        ">
+                        {% with media_type=contenu.get_media_type %}
+                    
+                                {% if media_type == 'image' %}
+                                    <!-- Affichage Image -->
+                                    <img src="{{ contenu.file.url }}" 
+                                        class="w-full h-auto rounded-lg shadow-md object-cover" 
+                                        alt="Illustration">
+
+                                {% elif media_type == 'video' %}
+                                    <!-- Affichage Vidéo avec le ratio dynamique vu précédemment -->
+                                    <div class="aspect-video w-full bg-black rounded-lg overflow-hidden">
+                                        <video controls class="w-full h-full object-cover">
+                                            <source src="{{ contenu.file.url }}">
+                                        </video>
+                                    </div>
+                                {% endif %}
+
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="p-7">
+                <h2 class="mb-2 text-lg font-bold leading-none tracking-tight">{{ entreprise.name }}</h2>
+                <p class="mb-5 text-neutral-500">{{ entreprise.description|truncatewords:20 }}</p>
+
+                <p>ville : <span class="font-semibold">{{ entreprise.city }}/{{entreprise.country}}</span></p>
+                <a class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm mt-3
+                 font-medium text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2
+                focus-visible:ring-ring focus-visible:ring-offset-2
+                disabled:opacity-50 disabled:pointer-events-none bg-blue-700 hover:bg-blue-800/90"
+                
+                href="{% url 'core:entreprise_detail_public' entreprise.id %}"
+                 >plus details</a>
+            </div>
+        </div>
+      {% empty %}
+        <p>Aucune entreprise trouvée.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
