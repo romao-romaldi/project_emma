@@ -62,10 +62,11 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     "django_htmx",
-    'django_browser_reload',
     # 'ckeditor',
     # 'ckeditor_uploader',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,9 +77,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    
     # "django_htmx.middleware.HTMXMiddleware",
 ]
+
+if config("ENV") == "DEV":
+    INSTALLED_APPS.append('django_browser_reload')
+
+    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 
 ROOT_URLCONF = 'project_ema.urls'
 

@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from decouple import config
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
@@ -24,8 +25,11 @@ urlpatterns = [
     path('', include('core.urls', namespace="core")),
     path('', include('customuser.urls', namespace='customuser')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+if config("ENV") == "DEV":
+    urlpatterns.append(    path("__reload__/", include("django_browser_reload.urls"))
+)
 
 if settings.DEBUG:
     # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
