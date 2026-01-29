@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def login_view(request):
+	if request.user.is_authenticated :
+		return redirect('core:entreprise_list')
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password = request.POST.get('password')

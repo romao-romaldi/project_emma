@@ -12,8 +12,7 @@
                 {% for contenu in entreprise.contenus.all %}
                     
                     {% if contenu.is_principal %}
-                    {{contenu.ratio_string}}
-                        <div class="relative w-full max-h-[450px]  overflow-hidden
+                        <div class="relative w-full max-h-[400px]  overflow-hidden
                   
                         {% if contenu.ratio_string == '16/9' %}
                         aspect-[16/9]

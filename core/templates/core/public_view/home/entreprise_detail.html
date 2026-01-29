@@ -32,7 +32,7 @@
                     {% for contenu in entreprise.contenus.all %}
                         {% if contenu.is_principal %}
                             <div class="
-                                relative max-h-[500px] overflow-hidden object-cover 
+                                relative max-h-[550px] overflow-hidden object-cover 
                                     
                                 {% if contenu.ratio_string == '16/9' %}
                                 aspect-[16/9]
@@ -92,7 +92,7 @@
                     {% if contenu.is_principal == False %}
                     <div class="flex flex-col gap-1  rounded-md px-1 py-1">
                         <h3 class="text-base">{{ contenu.title }}</h3>
-                        <div class="relative w-full overflow-hidden
+                        <div class="relative w-full overflow-hidden max-h[550px]
                         
                         {% if contenu.ratio_string == '16/9' %}
                         aspect-[16/9]
