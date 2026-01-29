@@ -6,7 +6,7 @@ services:
       # - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     ports:
-      - 8008:8000
+      - 8009:8000
     command: python -m gunicorn --bind 0.0.0.0:8000 --workers 4 --keep-alive=2 project_ema.wsgi:application
     restart: unless-stopped
 #    entrypoint: /app/entrypoint.sh#
