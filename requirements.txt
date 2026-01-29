@@ -22,7 +22,7 @@ markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 mdurl==0.1.2
 numpy==2.4.1
-opencv-python==4.13.0.90
+opencv-python-headless==4.13.0.90
 packaging==26.0
 pillow==12.0.0
 psycopg2-binary==2.9.11
