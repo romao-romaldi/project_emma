@@ -17,6 +17,7 @@ gunicorn = "*"
 python-decouple = "*"
 pillow = "==12.0.0"
 opencv-python-headless = "*"
+ffmpeg-python = "*"
 
 [dev-packages]
 
