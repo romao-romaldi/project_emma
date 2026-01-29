@@ -1,4 +1,6 @@
-import cv2
+from PIL import Image
+import ffmpeg
+
 import os
 from django.contrib.auth.models import User
 from django.db import models
@@ -63,19 +65,25 @@ class Contenu(models.Model):
 
         # 2. Si les dimensions ne sont pas encore définies
         if not self.width or not self.height:
-            # On utilise le chemin local du fichier
-            video_path = self.file.path
+            path = self.file.path
 
-            # Lecture des métadonnées avec OpenCV
-            cap = cv2.VideoCapture(video_path)
-            if cap.isOpened():
-                self.width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-                self.height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-                cap.release()
+            try:
+                # --- CAS 1 : IMAGE (via Pillow) ---
+                if self.file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+                    with Image.open(path) as img:
+                        self.width, self.height = img.size
 
-                # 3. Sauvegarde finale avec les dimensions remplies
-                # update_fields évite une boucle infinie de save()
-                super().save(update_fields=['width', 'height'])
+                # --- CAS 2 : VIDÉO (via FFmpeg) ---
+                elif self.file.name.lower().endswith(('.mp4', '.mov', '.avi')):
+                    probe = ffmpeg.probe(path)
+                    video_stream = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
+                    if video_stream:
+                        self.width = int(video_stream['width'])
+                        self.height = int(video_stream['height'])
+            except Exception as e:
+                print(f"Erreur lors de l'extraction des dimensions: {e}")
+
+            super().save(update_fields=['width', 'height'])
 
 
     def ratio_string(self):
