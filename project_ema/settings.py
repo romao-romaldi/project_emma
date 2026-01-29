@@ -76,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     
     # "django_htmx.middleware.HTMXMiddleware",
 ]
@@ -83,7 +84,7 @@ MIDDLEWARE = [
 if config("ENV") == "DEV":
     INSTALLED_APPS.append('django_browser_reload')
 
-    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware",)
 
 ROOT_URLCONF = 'project_ema.urls'
 

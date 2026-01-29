@@ -52,8 +52,6 @@
             tabButtonClicked(tabButton){
                 this.tabSelected = tabButton.id.replace(this.tabId + '-', '');
                 console.log('je suis entrain de verifer le tab', this.tabSelected)
-
-                
             },
             tabRepositionMarker(tabButton){
                 this.$refs.tabMarker.style.width=tabButton.offsetWidth + 'px';
