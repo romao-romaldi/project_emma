@@ -28,7 +28,7 @@ urlpatterns = [
 ]
 
 if config("ENV") == "DEV":
-    urlpatterns.append(    path("__reload__/", include("django_browser_reload.urls"))
+    urlpatterns.append(path("__reload__/", include("django_browser_reload.urls"))
 )
 
 if settings.DEBUG:
