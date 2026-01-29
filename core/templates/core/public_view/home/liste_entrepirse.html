@@ -8,7 +8,7 @@
         <div class="rounded-lg overflow-hidden border border-neutral-200/60 bg-white text-neutral-700 shadow-sm w-[380px]
 
         ">
-            <div class="relative">
+            <div class="relative max-h-[400px]" >
                 {% for contenu in entreprise.contenus.all %}
                     {% if contenu.is_principal %}
                         <div class="relative w-full overflow-hidden
