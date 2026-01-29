@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 django-tailwind = "==3.6.0"
-gunicorn = "*"
 django-ckeditor = "==6.7.1"
 django-htmx = "*"
 django-extension = "*"
@@ -13,6 +12,10 @@ django-browser-reload = "*"
 whitenoise = "*"
 django = "*"
 opencv-python = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
+python-decouple = "*"
 
 [dev-packages]
 
