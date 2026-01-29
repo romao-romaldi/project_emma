@@ -24,6 +24,7 @@ mdurl==0.1.2
 numpy==2.4.1
 opencv-python==4.13.0.90
 packaging==26.0
+pillow==12.0.0
 psycopg2-binary==2.9.11
 Pygments==2.19.2
 pymongo==4.16.0
