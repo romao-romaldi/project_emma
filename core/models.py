@@ -88,7 +88,15 @@ class Contenu(models.Model):
 
     def ratio_string(self):
         if self.width and self.height:
-            return f"{self.width}/{self.height}"
+            if self.width > self.height:
+                return '16/9'
+
+            elif self.height > self.width:
+                return '9/16'
+
+            else:
+                return '1/1'
+
         return "16/9"  # Valeur par défaut
 
     def get_media_type(self):

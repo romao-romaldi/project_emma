@@ -28,11 +28,11 @@
                     </div>
 
                 </div>
-                <div class=" relative lg:w-3/5 flex items-center justify-center max-h-[500px]">
+                <div class=" relative lg:w-3/5 flex items-center justify-center ">
                     {% for contenu in entreprise.contenus.all %}
                         {% if contenu.is_principal %}
                             <div class="
-                                relative overflow-hidden object-cover
+                                relative max-h-[500px] overflow-hidden object-cover 
                                     
                                 {% if contenu.ratio_string == '16/9' %}
                                 aspect-[16/9]
