@@ -35,6 +35,7 @@ COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 # Exécute la collecte des fichiers statiques pendant le build
 # RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 COPY entrypoint.sh ${APP_HOME}/entrypoint.sh
 
