@@ -3,7 +3,7 @@ from . import views, home_view
 app_name="core"
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
 
 
 
@@ -29,6 +29,6 @@ urlpatterns = [
 
 
     #public view
-    path('entreprises/', home_view.list_entreprise, name='list_entreprise_public'),
+    path('', home_view.list_entreprise, name='list_entreprise_public'),
     path('entreprise/detail/<int:pk>/', home_view.entreprise_detail_public, name='entreprise_detail_public'),
 ]
